@@ -35,6 +35,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 	implementation 'org.springframework.data:spring-data-rest-hal-explorer'
 
+	/* 스프링부트 3.X 대 버전 - 이거 하고 맨 아래 */
+	implementation "com.querydsl:querydsl-core"
+	implementation "com.querydsl:querydsl-collections"
+	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+	annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
+	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -46,3 +53,16 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+////////////// 스프링 3버전용 - queryDSL 설정부 //////////////////
+def generated = 'src/main/generated' // Q클래스 생성 위치
+clean {
+	delete file(generated)
+}
+tasks.withType(JavaCompile) {
+	options.generatedSourceOutputDirectory = file(generated)
+}
+/* Querydsl 관련된 거 다 추가했으면 코끼리클릭하고
+* External Libraries 가보면 com.querydsl 관련있는지 확인
+* 3. 화면 우측의 gradle 버튼 > tasks > build > clean 한번 하고
+* 4. 같은 gradle 버튼 > other > compile.java 더블 클릭 하면
+* 5. main 패키지 > generated 라는 패키지 생겼을 거임. 그 안에 Q로 시작하는 엔티티와 같은 클래스 파일들이 있으면 끝.*/
