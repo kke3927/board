@@ -49,11 +49,11 @@ public class Ex04_2_DataRestRepositoryTest {
             .andExpect(content().contentType(MediaType.valueOf("application/hal+json")));
   }
 
-//  @DisplayName("[api] 게시판 댓글 단일 조회") // ArticleComment에 있는 모든 댓글이 아니라 특정 Article의 댓글들 전체 조회인 거임.
-//  @Test
-//  void articleCommentOne() throws Exception {
-//    mockMvc.perform(get("/api/articles/1/articleComment/1"))
-//            .andExpect(status().isOk())
-//            .andExpect(content().contentType(MediaType.valueOf("application/hal+json")));
-//  }
+  @DisplayName("[api] 게시판 댓글 단일 조회") // ArticleComment에 있는 모든 댓글이 아니라 특정 Article의 댓글들 전체 조회인 거임.
+  @Test
+  void articleCommentOne() throws Exception {
+    mockMvc.perform(get("/api/articles/1/articleComment/99"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.valueOf("application/hal+json")));
+  }
 }
