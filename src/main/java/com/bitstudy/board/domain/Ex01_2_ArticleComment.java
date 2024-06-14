@@ -14,7 +14,7 @@ import java.util.Objects;
 
 @Getter
 @ToString
-@Entity
+//@Entity
 @Table(indexes = {
         @Index(columnList = "content"),
         @Index(columnList = "createdAt"),

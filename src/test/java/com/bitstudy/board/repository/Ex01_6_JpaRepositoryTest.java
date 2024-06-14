@@ -1,7 +1,8 @@
 package com.bitstudy.board.repository;
 
 import com.bitstudy.board.config.Ex01_3_JpaConfig;
-import com.bitstudy.board.domain.Ex01_1_Article;
+import com.bitstudy.board.domain.Article;
+import com.bitstudy.board.domain.Article;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +20,12 @@ import static org.junit.jupiter.api.Assertions.*;
 @Import(Ex01_3_JpaConfig.class) // 테스트파일에서 jpa auditing 구성정보 알아보게 하기.
 class Ex01_6_JpaRepositoryTest {
 //  @Autowired Ex01_4_ArticleRepository articleRepository;
-//  @Autowired Ex01_5_ArticleCommentRepository articleCommentRepository;
-  
+//  @Autowired ArticleCommentRepository articleCommentRepository;
+
   // 생성자 주입
-  Ex01_4_ArticleRepository articleRepository;
-  Ex01_5_ArticleCommentRepository articleCommentRepository;
-  public Ex01_6_JpaRepositoryTest(@Autowired Ex01_4_ArticleRepository articleRepository, @Autowired Ex01_5_ArticleCommentRepository articleCommentRepository){
+  ArticleRepository articleRepository;
+  ArticleCommentRepository articleCommentRepository;
+  public Ex01_6_JpaRepositoryTest(@Autowired ArticleRepository articleRepository, @Autowired ArticleCommentRepository articleCommentRepository){
     this.articleRepository = articleRepository;
     this.articleCommentRepository = articleCommentRepository;
   }
@@ -57,7 +58,7 @@ class Ex01_6_JpaRepositoryTest {
 
 
     //when//어떨 때. 어떤 값이 올 때.
-    List<Ex01_1_Article> articles = articleRepository.findAll(); // selectAll?
+    List<Article> articles = articleRepository.findAll(); // selectAll?
 
     //then//결과
     assertThat(articles).isNotNull().hasSize(100);
@@ -73,9 +74,9 @@ class Ex01_6_JpaRepositoryTest {
     long prevCount = articleRepository.count();//카운트가 몇 개나 될지 모르니까 long으로
 
     // when- 삽입 - DB에 삽입하는 순서: DTO에 title, content, hashtag 담아서 넘기기.
-    Ex01_1_Article article = Ex01_1_Article.of("제목1", "내용1", "Red");
+    Article article = Article.of("제목1", "내용1", "Red");
 
-    Ex01_1_Article saveArticle = articleRepository.save(article);
+    Article saveArticle = articleRepository.save(article);
 
     // then - 현재 카운트가 기존 카운트 +1 이면 테스트 통과
     assertThat(articleRepository.count()).isEqualTo(prevCount+1);
@@ -95,7 +96,7 @@ class Ex01_6_JpaRepositoryTest {
     /* 순서 1) 기존의 영속성 컨텍스트로부터 엔티티 한 개 가져오기 ->
     *     2) 글번호 1번은 보통 무조건 있으니까 -> findById(1L)
     *     3) 없으면 throw 시켜서 일단 현재 테스트는 끝나게 하기 => .orElseThrow() */
-    Ex01_1_Article article = articleRepository.findById(1L).orElseThrow();
+    Article article = articleRepository.findById(1L).orElseThrow();
 System.out.println("여기 !!!!---------------------" + article);
     /* 순서 2) 해쉬태그 업데이트 하기
      * 1) */
@@ -112,7 +113,7 @@ System.out.println("여기 !!!!---------------------" + article);
     * 1. 변경점 감지
     * 2. 수정된 Entity(여기서는 article) 를 지연 sql 저장소에 등록한다.
     * 3. 쓰기 지연 sql 저장소의 쿼리를 DB에 전송한다.(등록, 수정, 삭제 쿼리) */
-    Ex01_1_Article savedArticle = articleRepository.saveAndFlush(article);//save로 써도 pk가 null 이면 insert, pk가 null 이 아니면 update 로 알아서 해줌.
+    Article savedArticle = articleRepository.saveAndFlush(article);//save로 써도 pk가 null 이면 insert, pk가 null 이 아니면 update 로 알아서 해줌.
     //then
     //savedArticle 이 "hashtag" 필드를 가지고 있는데, 그 필드에 updateHashtag 값이 있는지 확인하라는 뜻
     assertThat(savedArticle).hasFieldOrPropertyWithValue("hashtag", updateHashtag);
@@ -128,7 +129,7 @@ System.out.println("여기 !!!!---------------------" + article);
     * 3) 하나 삭제
     * 4) (2번에서 구한 개수 - 1)한 거랑 새로 구한 count 비교해서... 같으면 통과*/
     //given
-    Ex01_1_Article prevArticle = articleRepository.findById(1L).orElseThrow();
+    Article prevArticle = articleRepository.findById(1L).orElseThrow();
     /* 지우면 DB 개수 하나 줄어드는 거니까 미리 엔티티 개수 구하기
     * 게시글 뿐만 아니라 연관된 댓글까지 삭제할 거라서...*/
     long prevArticleCount = articleRepository.count(); //
@@ -151,7 +152,7 @@ System.out.println("여기 !!!!---------------------" + article);
   @DisplayName("select 테스트")
   @Test
   void mySelectTest(){
-    List<Ex01_1_Article> list = articleRepository.findAll();
+    List<Article> list = articleRepository.findAll();
 
     assertThat(list).isNotNull().hasSize(100);
   }
@@ -160,7 +161,7 @@ System.out.println("여기 !!!!---------------------" + article);
   @Test
   void myInsertTest(){
     long prevArticle = articleRepository.count();
-    Ex01_1_Article article = Ex01_1_Article.of("제목", "내용", "Red");
+    Article article = Article.of("제목", "내용", "Red");
 
     articleRepository.save(article);
 
@@ -170,7 +171,7 @@ System.out.println("여기 !!!!---------------------" + article);
   @DisplayName("update 테스트")
   @Test
   void myUpdateTest(){
-    Ex01_1_Article article = articleRepository.findById(1L).orElseThrow();
+    Article article = articleRepository.findById(1L).orElseThrow();
 
     String updateHash = "Blue";
     article.setHashtag(updateHash);
@@ -184,7 +185,7 @@ System.out.println("여기 !!!!---------------------" + article);
   @Test
   void myDeleteTest(){
     //지울 거 갖고 오기
-    Ex01_1_Article article = articleRepository.findById(1L).orElseThrow();
+    Article article = articleRepository.findById(1L).orElseThrow();
 
     long prevArticleCount = articleRepository.count();
     long prevArticleCommentCount = articleCommentRepository.count();

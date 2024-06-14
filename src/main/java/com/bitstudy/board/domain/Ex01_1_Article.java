@@ -45,8 +45,8 @@ import java.util.Set;
 * */
 @Getter // Getter 자동생성
 @ToString//오버라이드 toString
-@EntityListeners(AuditingEntityListener.class)
-@Entity
+//@EntityListeners(AuditingEntityListener.class)
+//@Entity
 @Table(indexes = {
         @Index(columnList = "title"),
         @Index(columnList = "hashtag"),
