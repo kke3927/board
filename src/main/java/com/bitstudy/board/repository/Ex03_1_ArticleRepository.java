@@ -9,7 +9,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  * 브라우저에 localhost:8080/api 치면 HAL Explorer 켜질 것.
  * */
 
-@RepositoryRestResource /* yaml 파일에서 detection-strategy : annotated 대응하는 어노테이션*/
+//@RepositoryRestResource /* yaml 파일에서 detection-strategy : annotated 대응하는 어노테이션*/
 public interface Ex03_1_ArticleRepository extends JpaRepository<Article, Long> {
 
 }

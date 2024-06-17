@@ -12,6 +12,6 @@ import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 //@RepositoryRestResource
-public interface Ex05_2_ArticleCommentRepository extends JpaRepository<ArticleComment, Long>, QuerydslPredicateExecutor<ArticleComment>/*얘만 있어도 검색은 됨. 정확한 검색만 가능*//*, QuerydslBinderCustomizer<QArticleComment>*//*like 검색*/ {
+public interface Ex05_2_ArticleCommentRepository extends JpaRepository<ArticleComment, Long>/*, QuerydslPredicateExecutor<ArticleComment>*//*얘만 있어도 검색은 됨. 정확한 검색만 가능*//*, QuerydslBinderCustomizer<QArticleComment>*//*like 검색*/ {
   /*QuerydslPredicateExecutor 는 기본적으로 article 안에 있는 모든 필드에 대한 기본 검색 기능을 추가해줌 (이거만 있어도 검색은 가능함.) */
 }

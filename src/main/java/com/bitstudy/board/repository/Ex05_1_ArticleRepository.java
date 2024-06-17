@@ -11,7 +11,7 @@ import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 //@RepositoryRestResource
-public interface Ex05_1_ArticleRepository extends JpaRepository<Article, Long>, QuerydslPredicateExecutor<Article>/*얘만 있어도 검색은 됨. 정확한 검색만 가능*//*, QuerydslBinderCustomizer<QArticle>*//*like 검색*/ {
+public interface Ex05_1_ArticleRepository extends JpaRepository<Article, Long>/*, QuerydslPredicateExecutor<Article>*//*얘만 있어도 검색은 됨. 정확한 검색만 가능*//*, QuerydslBinderCustomizer<QArticle>*//*like 검색*/ {
   /*QuerydslPredicateExecutor 는 기본적으로 article 안에 있는 모든 필드에 대한 기본 검색 기능을 추가해줌 (이거만 있어도 검색은 가능함.)
   * - 간단한 테스트 해보기 위해서 QuerydslBinderCustomizer<QArticle> 주석처리 해보고
   * QuerydslPredicateExecutor<Article> 만 살려서 해보기
