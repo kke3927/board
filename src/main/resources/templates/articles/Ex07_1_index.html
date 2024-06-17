@@ -16,7 +16,7 @@
     사용법: th:replace <태그명 th:replace="~{가져올 컴포넌트 파일명 :: selector}"></태그명>
     <header>header 삽입부</header> => <header th:replace="~{header::#header}"></header>
     -->
-    <header th:replace="~{header::#header}"></header>
+<header th:replace="~{header::#header}"></header>
 <main>
     <!--검색 파트 -->
     <form action="#">
@@ -33,7 +33,7 @@
         <input type="search" placeholder="검색어를 입력하세요" name="search-value" id="search-value">
         <button type="submit">검색</button>
     </form>
-<!--리스트 -->
+    <!--리스트 -->
     <table>
         <thead>
         <tr>
@@ -65,7 +65,7 @@
         </tbody>
 
     </table>
-<!-- 페이지네이션 -->
+    <!-- 페이지네이션 -->
     <nav>
         <table>
             <tbody>
@@ -88,6 +88,6 @@
 <!--    <hr>-->
 <!--    footer 삽입부-->
 <!--</footer>-->
-    <footer th:replace="~{footer::#footer}"></footer>
+<footer th:replace="~{footer::#footer}"></footer>
 </body>
 </html>

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@Controller
+//@Controller
 //@RequestMapping("/articles")
 public class Ex06_1_ArticleController {
 //  @GetMapping
