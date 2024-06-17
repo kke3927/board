@@ -1,9 +1,10 @@
 debug: false
-management.endpoints.web.exposure.include: "*"
+
+management.endpoints.web.exposure.include:
 
 logging:
   level:
-    com.com.bitstudy.app: debug
+    com.bitstudy.board: debug
     org.springframework.web.servlet: debug
     org.hibernate.type.descriptor.sql.BasicBinder: trace
 spring:
@@ -22,7 +23,6 @@ spring:
       hibernate.default_batch_fetch_size: 100
   h2.console.enabled: false
   sql.init.mode: always
-
   data:
     rest:
       base-path: /api
