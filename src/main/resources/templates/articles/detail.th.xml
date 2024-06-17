@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!--decoupled logic 참고: thymeleaf doc.-->
+
+<!-- 사용법
+    <attr sel="html 에서 연결할 요소 잡기" th:필요한 타입="${선택지}" />
+-->
+<thlogic>
+    <attr sel="#header" th:replace="header :: #header" />
+    <attr sel="#footer" th:replace="footer :: #footer" />
+</thlogic>

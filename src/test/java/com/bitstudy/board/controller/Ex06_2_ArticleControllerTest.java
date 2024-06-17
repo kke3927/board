@@ -50,7 +50,7 @@ class Ex06_2_ArticleControllerTest {
     4) 해시태그 검색 전용
   */
 
-  @Disabled("구현중")
+//  @Disabled("구현중")
   @Test
   @DisplayName("[view][GET] 게시글 상세 (게시판) 페이지 - 정상호출")
   public void articleOne() throws Exception {
@@ -59,7 +59,7 @@ class Ex06_2_ArticleControllerTest {
             .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
             .andExpect((view().name("articles/detail")))
             .andExpect(model().attributeExists("articles"))
-            .andExpect(model().attributeExists("articlesComments"));
+            .andExpect(model().attributeExists("articleComments"));
     // 상세페이지에는 댓글들도 여러개 있을 수 있으니 모델이 articlesComments도 키값으로 있는지 검사
   }
 
