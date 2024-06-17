@@ -16,7 +16,12 @@
     사용법: th:replace <태그명 th:replace="~{가져올 컴포넌트 파일명 :: selector}"></태그명>
     <header>header 삽입부</header> => <header th:replace="~{header::#header}"></header>
     -->
-    <header th:replace="~{header::#header}"></header>
+<!--<header th:replace="~{header::#header}"></header> 대신 아래로 하기 -->
+    <header id="header"></header>
+<!-- 할일: 타임리프 deCoupled 로직 적용해보기
+
+deCoupled 로직이란 html문서에 타임리프문법은 xml 로 빼서 관리
+해당 html 파일과 xml 파일 연결은-->
 <main>
     <!--검색 파트 -->
     <form action="#">
