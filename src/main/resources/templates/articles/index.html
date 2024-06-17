@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>게시판 페이지</title>
+</head>
+<body>
+<!-- 이 파일 완성하고 컨트롤러 가서 매핑 연결하면 테스트 돌릴 수 있음.
+   코드 바꿀 때마다 recompile 해야 함 (ctrl + shift + f9) 혹시 안 되면 ctrl + S 하고 해보기
+   같이 쓰면 편한 웹스토어 앱 - liveReload (vsCode 에서 live server 같은 거)-->
+<header>header 삽입부</header>
+
+<main>
+    <!--검색 파트 -->
+    <form action="#">
+        <label for="search-type" hidden>유형</label>
+        <select id="search-type">
+            <option value="">제목</option>
+            <option value="">본문</option>
+            <option value="">id</option>
+            <option value="">닉네임</option>
+            <option value="">해시태그</option>
+        </select>
+
+        <label for="search-value" hidden>검색어</label>
+        <input type="search" placeholder="검색어를 입력하세요" name="search-value" id="search-value">
+        <button type="submit">검색</button>
+    </form>
+<!--리스트 -->
+    <table>
+        <thead>
+        <tr>
+            <th>제목</th>
+            <th>해시태그</th>
+            <th>작성자</th>
+            <th>작성일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1번글</td>
+            <td>#java</td>
+            <td>bitstudy</td>
+            <td>2022-12-22</td>
+        </tr>
+        <tr>
+            <td>2번글</td>
+            <td>#spring</td>
+            <td>bitstudy</td>
+            <td>2022-12-22</td>
+        </tr>
+        <tr>
+            <td>3번글</td>
+            <td>#mysql</td>
+            <td>bitstudy</td>
+            <td>2022-12-22</td>
+        </tr>
+        </tbody>
+
+    </table>
+<!-- 페이지네이션 -->
+    <nav>
+        <table>
+            <tbody>
+            <tr>
+                <td>prev</td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+                <td>next</td>
+            </tr>
+            </tbody>
+        </table>
+    </nav>
+
+</main>
+
+<footer>
+    <hr>
+    footer 삽입부
+</footer>
+</body>
+</html>
