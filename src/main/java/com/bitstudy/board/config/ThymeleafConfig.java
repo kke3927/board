@@ -18,15 +18,15 @@ public class ThymeleafConfig {
 
 
 
-//  @RequiredArgsConstructor
+  @RequiredArgsConstructor
   @Getter
   @ConfigurationProperties("spring.thymeleaf3")
   public static class Thymeleaf3Properties {
     private final boolean decoupledLogic;
 
-    @ConstructorBinding
-    public Thymeleaf3Properties(boolean decoupledLogic) {
-      this.decoupledLogic = decoupledLogic;
-    }
+//    @ConstructorBinding
+//    public Thymeleaf3Properties(boolean decoupledLogic) {
+//      this.decoupledLogic = decoupledLogic;
+//    }
   }
 }
