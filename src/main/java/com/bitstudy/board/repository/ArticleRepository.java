@@ -4,6 +4,8 @@ import com.bitstudy.board.domain.Article;
 import com.bitstudy.board.domain.QArticle;
 import com.querydsl.core.types.dsl.DateTimeExpression;
 import com.querydsl.core.types.dsl.StringExpression;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
@@ -24,6 +26,17 @@ public interface ArticleRepository extends JpaRepository<Article, Long>, Queryds
   *             java 1.8 이후부터는 default 를 써서 구현부를 만들 수 있음(많이 쓰면 안 됨)
   *
   * */
+
+
+  /* 페이지네이션용 추가 - 검색 테스트 할 때 사용됨. */
+  Page<Article> findByTitleContaining(String title, Pageable pageable);
+  Page<Article> findByContentContaining(String title, Pageable pageable);
+  Page<Article> findByUserAccount_UserIdContaining(String title, Pageable pageable);
+  Page<Article> findByUserAccount_NicknameContaining(String title, Pageable pageable);
+  Page<Article> findByHashtagContaining(String title, Pageable pageable);
+
+
+
   @Override
   default void customize(QuerydslBindings bindings, QArticle root) {
     bindings.excludeUnlistedProperties(true); // 리스트를 만들 건데 그 리스트에 있는 컬럼만 검색되게 하라는 뜻
