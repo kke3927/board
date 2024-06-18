@@ -21,11 +21,12 @@ class Ex08_8_JpaRepositoryTest {
   // 생성자 주입
   ArticleRepository articleRepository;
   ArticleCommentRepository articleCommentRepository;
-  public static UserAccountRepository userAccountRepository;
+  UserAccountRepository userAccountRepository;
 
-  public Ex08_8_JpaRepositoryTest(@Autowired ArticleRepository articleRepository, @Autowired ArticleCommentRepository articleCommentRepository){
+  public Ex08_8_JpaRepositoryTest(@Autowired ArticleRepository articleRepository, @Autowired ArticleCommentRepository articleCommentRepository, @Autowired UserAccountRepository userAccountRepository){
     this.articleRepository = articleRepository;
     this.articleCommentRepository = articleCommentRepository;
+    this.userAccountRepository = userAccountRepository;
   }
   @DisplayName("select 테스트")
   @Test
@@ -52,6 +53,7 @@ class Ex08_8_JpaRepositoryTest {
 
     // when- 삽입 - DB에 삽입하는 순서: DTO에 title, content, hashtag 담아서 넘기기.
     UserAccount userAccount = userAccountRepository.save(UserAccount.of("new bitstudy", "1234", null, null, null));
+
     Article article = Article.of(userAccount, "제목1", "내용1", "Red");
 
     Article saveArticle = articleRepository.save(article);
@@ -76,9 +78,7 @@ System.out.println("여기 !!!!---------------------" + article);
     article.setHashtag(updateHashtag);
     //when - 테스트 해야 하는 내용
 
-    Article savedArticle = articleRepository.saveAndFlush(article);//save로 써도 pk가 null 이면 insert, pk가 null 이 아니면 update 로 알아서 해줌.
-    //then
-    //savedArticle 이 "hashtag" 필드를 가지고 있는데, 그 필드에 updateHashtag 값이 있는지 확인하라는 뜻
+    Article savedArticle = articleRepository.saveAndFlush(article);
     assertThat(savedArticle).hasFieldOrPropertyWithValue("hashtag", updateHashtag);
   }
 
@@ -88,8 +88,6 @@ System.out.println("여기 !!!!---------------------" + article);
   void deleteTetst(){
     //given
     Article prevArticle = articleRepository.findById(1L).orElseThrow();
-    /* 지우면 DB 개수 하나 줄어드는 거니까 미리 엔티티 개수 구하기
-    * 게시글 뿐만 아니라 연관된 댓글까지 삭제할 거라서...*/
     long prevArticleCount = articleRepository.count(); //
     long prevArticleCommentCount = articleCommentRepository.count();
 
@@ -106,54 +104,4 @@ System.out.println("여기 !!!!---------------------" + article);
   }
 
 
-
-  @DisplayName("select 테스트")
-  @Test
-  void mySelectTest(){
-    List<Article> list = articleRepository.findAll();
-
-    assertThat(list).isNotNull().hasSize(100);
-  }
-
-  @DisplayName("insert 테스트")
-  @Test
-  void myInsertTest(){
-    long prevArticle = articleRepository.count();
-    UserAccount userAccount = userAccountRepository.save(UserAccount.of("new bitstudy", "1234", null, null, null));
-    Article article = Article.of(userAccount, "제목", "내용", "Red");
-
-    articleRepository.save(article);
-
-    assertThat(articleRepository.count()).isEqualTo(prevArticle + 1);
-  }
-
-  @DisplayName("update 테스트")
-  @Test
-  void myUpdateTest(){
-    Article article = articleRepository.findById(1L).orElseThrow();
-
-    String updateHash = "Blue";
-    article.setHashtag(updateHash);
-
-    articleRepository.saveAndFlush(article);
-
-    assertThat(article).hasFieldOrPropertyWithValue("hashtag", updateHash);
-  }
-
-  @DisplayName("delete 테스트")
-  @Test
-  void myDeleteTest(){
-    //지울 거 갖고 오기
-    Article article = articleRepository.findById(1L).orElseThrow();
-
-    long prevArticleCount = articleRepository.count();
-    long prevArticleCommentCount = articleCommentRepository.count();
-
-    long deleteArticleComment = article.getArticleComment().size();
-
-    articleRepository.delete(article);
-
-    assertThat(articleRepository.count()).isEqualTo(prevArticleCount - 1);
-    assertThat(articleCommentRepository.count()).isEqualTo(prevArticleCommentCount - deleteArticleComment);
-  }
 }

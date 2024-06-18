@@ -30,10 +30,8 @@ public class UserAccount extends Ex02_3_AuditingFields {
   @Setter
   private String email;
   @Setter
-  @Column(nullable = false)
   private String nickname;
   @Setter
-  @Column(nullable = false)
   private String memo;
 
   /* 그외 네 개는 메타데이터*/
